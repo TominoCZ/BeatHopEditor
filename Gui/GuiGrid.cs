@@ -26,17 +26,56 @@ namespace BeatHopEditor.Gui
 			var rect = ClientRectangle;
 			var mouseOver = false;
 
-			GL.Color3(0.1f, 0.1f, 0.1f);
-			Glu.RenderQuad(rect.X, rect.Y, rect.Width, rect.Height);
-
 			var cellSize = rect.Width / 5f;
 			var noteSize = cellSize * 0.75f;
+
+			var divVal = editor.GridDivider.Value + 1;
+			if (divVal > 1)
+			{
+				var div = 1.0 / divVal;
+
+				GL.LineWidth(1);
+				GL.Begin(PrimitiveType.Lines);
+
+				for (double x = 0; x - 0.005 <= 4; x += div)
+				{
+					var lx = (int)(rect.X + cellSize / 2 + x * cellSize);
+
+					GL.Color3(0.1, 0.1, 0.1);
+					GL.Vertex2(lx + 0.5, editor.Track.ClientRectangle.Bottom);
+					GL.Color3(0.35f, 0.35f, 0.35f);
+					GL.Vertex2(lx + 0.5, rect.Y);
+
+					//Glu.RenderQuad(lx, 0, 1, rect.Y);
+				}
+
+				GL.End();
+			}
+
+			GL.LineWidth(4);
+			GL.Begin(PrimitiveType.Lines);
+			GL.Color3(0.1, 0.1, 0.1);
+			GL.Vertex2((int)rect.Left - 2, editor.Track.ClientRectangle.Bottom);
+			GL.Color3(0.5f, 0.5f, 0.5f);
+			GL.Vertex2((int)rect.Left - 2, (int)rect.Bottom + 1);
+
+			GL.Color3(0.1, 0.1, 0.1);
+			GL.Vertex2((int)(rect.Right + 3), editor.Track.ClientRectangle.Bottom);
+			GL.Color3(0.5f, 0.5f, 0.5f);
+			GL.Vertex2((int)(rect.Right + 3), (int)rect.Bottom + 1);
+
+			GL.Color3(0.1f, 0.1f, 0.1f);
+
+			GL.End();
+			GL.LineWidth(1);
+
+			Glu.RenderQuad(rect.X, rect.Y, rect.Width, rect.Height);
 
 			var gap = cellSize - noteSize;
 
 			var audioTime = EditorWindow.Instance.MusicPlayer.CurrentTime.TotalMilliseconds;
 
-			GL.Color3(0.2, 0.2, 0.2f);
+			GL.Color3(0.2, 0.2, 0.2);
 
 			for (int y = 0; y <= 1; y++)
 			{
@@ -51,6 +90,20 @@ namespace BeatHopEditor.Gui
 
 				Glu.RenderQuad((int)(rect.X + lx), (int)(rect.Y), 1, rect.Height + 1);
 			}
+
+			/*
+			if (divVal > 1)
+			{
+				var div = 1.0 / divVal;
+				GL.Color3(0.25f, 0.5f, 0f);
+				var h = rect.Height * 0.075;
+				for (double x = 0; x - 0.005 <= 4; x += div)
+				{
+					var lx = cellSize / 2 + x * cellSize;
+
+					Glu.RenderQuad((int)(rect.X + lx - 1), (int)(rect.Bottom) - h, 3, h);
+				}
+			}*/
 
 			var fr = EditorWindow.Instance.FontRenderer;
 
@@ -105,16 +158,26 @@ namespace BeatHopEditor.Gui
 
 				//var progress = (float)Math.Pow(1 - Math.Min(1, (note.Ms - audioTime) / 750.0), 2);
 				var seconds = (float)(note.Ms - audioTime) / 1000;
-				var progress = (float)Math.Pow(1 - Math.Min(1, seconds / trackTimeLength), 0.75);
+				var progress = (float)(1 - seconds / trackTimeLength);//Math.Pow(1 - Math.Min(1, seconds / trackTimeLength), 0.75);
 
-				var x = rect.X + note.X * cellSize + gap / 2;
-				var y = rect.Y + gap / 2 - seconds * noteSpeed;
+				var cellX = rect.X + note.X * cellSize;
+				var cellY = rect.Y - seconds * noteSpeed;
+
+				var x = cellX + gap / 2;
+				var y = cellY + gap / 2;
 
 				var noteRect = new RectangleF(x, y, noteSize, noteSize);
 				GL.Color4(note.Color.R, note.Color.G, note.Color.B, progress * 0.15f);
 				Glu.RenderQuad(noteRect);
 				GL.Color4(note.Color.R, note.Color.G, note.Color.B, progress);
 				Glu.RenderOutline(noteRect);
+
+				if (divVal > 1)
+				{
+					var lx = (int)(cellX + cellSize / 2 - 1);
+					Glu.RenderQuad(lx, cellY + gap/2 - 2, 3, 5);
+					Glu.RenderQuad(lx, cellY + cellSize - gap / 2 - 3, 3, 5);
+				}
 
 				if (editor.ApproachSquares.Toggle)
 				{

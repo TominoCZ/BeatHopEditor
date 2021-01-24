@@ -95,7 +95,7 @@ namespace BeatHopEditor
 
 		public float CubeStep => 50 * 10 * Zoom;
 
-		public EditorWindow(long offset) : base(1080, 600, new GraphicsMode(32, 8, 0, 8), "Beat Hop Map Editor v1.0")
+		public EditorWindow(long offset) : base(1080, 600, new GraphicsMode(32, 8, 0, 8), "Beat Hop Map Editor v1.1")
 		{
 			Instance = this;
 
@@ -332,15 +332,24 @@ namespace BeatHopEditor
 
 					editor.SfxVolume.Value = (int)tick;
 				}
-				if (editor.BeatSnapDivisor.Dragging)
+				if (editor.BeatDivider.Dragging)
 				{
-					var rect = editor.BeatSnapDivisor.ClientRectangle;
-					var step = (rect.Width - rect.Height) / editor.BeatSnapDivisor.MaxValue;
+					var rect = editor.BeatDivider.ClientRectangle;
+					var step = (rect.Width - rect.Height) / editor.BeatDivider.MaxValue;
 
-					var tick = (int)MathHelper.Clamp(Math.Round((e.X - rect.X - rect.Height / 2) / step), 0, editor.BeatSnapDivisor.MaxValue);
+					var tick = (int)MathHelper.Clamp(Math.Round((e.X - rect.X - rect.Height / 2) / step), 0, editor.BeatDivider.MaxValue);
 
-					editor.BeatSnapDivisor.Value = tick;
+					editor.BeatDivider.Value = tick;
 					editor.Track.BeatDivisor = tick + 1;
+				}
+				if (editor.GridDivider.Dragging)
+				{
+					var rect = editor.GridDivider.ClientRectangle;
+					var step = (rect.Width - rect.Height) / editor.GridDivider.MaxValue;
+
+					var tick = (int)MathHelper.Clamp(Math.Round((e.X - rect.X - rect.Height / 2) / step), 0, editor.GridDivider.MaxValue);
+
+					editor.GridDivider.Value = tick;
 				}
 				if (editor.Tempo.Dragging)
 				{
@@ -435,6 +444,7 @@ namespace BeatHopEditor
 
 						_draggingNoteGrid = true;
 
+						_dragStartX = e.X;
 						_dragStartIndexX = gn.X;
 
 						if (!_draggedNotes.Contains(gn))
@@ -472,9 +482,14 @@ namespace BeatHopEditor
 						editor.SfxVolume.Dragging = true;
 						OnMouseMove(new MouseMoveEventArgs(e.X, e.Y, 0, 0));
 					}
-					else if (editor.BeatSnapDivisor.ClientRectangle.Contains(e.Position))
+					else if (editor.BeatDivider.ClientRectangle.Contains(e.Position))
 					{
-						editor.BeatSnapDivisor.Dragging = true;
+						editor.BeatDivider.Dragging = true;
+						OnMouseMove(new MouseMoveEventArgs(e.X, e.Y, 0, 0));
+					}
+					else if (editor.GridDivider.ClientRectangle.Contains(e.Position))
+					{
+						editor.GridDivider.Dragging = true;
 						OnMouseMove(new MouseMoveEventArgs(e.X, e.Y, 0, 0));
 					}
 					else if (editor.Tempo.ClientRectangle.Contains(e.Position))
@@ -635,7 +650,8 @@ namespace BeatHopEditor
 					MusicPlayer.CurrentTime = TimeSpan.FromTicks((long)(MusicPlayer.TotalTime.Ticks * (decimal)editor.Timeline.Progress));
 				}
 
-				editor.BeatSnapDivisor.Dragging = false;
+				editor.BeatDivider.Dragging = false;
+				editor.GridDivider.Dragging = false;
 				editor.MasterVolume.Dragging = false;
 				editor.SfxVolume.Dragging = false;
 				editor.Timeline.Dragging = false;
@@ -1134,8 +1150,17 @@ namespace BeatHopEditor
 		{
 			if (GuiScreen is GuiScreenEditor editor && _draggedNotes.FirstOrDefault() is Note note)
 			{
+				double div = 1.0 / (editor.GridDivider.Value + 1);
+
 				var rect = editor.Grid.ClientRectangle;
-				var newX = (int)Math.Floor((pos.X - rect.X) / rect.Width * 5); //TODO: it's possible to lock this position to a finer grid for quantum
+
+				var offset = (pos.X - _dragStartX) / rect.Width * 5;
+				var gridPos = _dragStartIndexX + offset;
+
+				var newX = (float)(Math.Floor(gridPos / div + 0.5) * div); //TODO: it's possible to lock this position to a finer grid for quantum
+				
+				//newX = (float)Math.Floor(newX);
+
 				//var newY = (int)Math.Floor((pos.Y - rect.Y) / rect.Height * 3);
 
 				if (newX < 0 || newX > 4)// || newY < 0 || newY > 2)

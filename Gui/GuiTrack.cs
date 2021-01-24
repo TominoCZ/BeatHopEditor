@@ -138,6 +138,7 @@ namespace BeatHopEditor.Gui
 				GL.Color4(note.Color.R, note.Color.G, note.Color.B, alphaMult);
 				Glu.RenderOutline((int)x, (int)y, (int)noteSize, (int)noteSize);
 
+				/*
 				var gridGap = 2;
 				for (int j = 0; j < 9; j++)
 				{
@@ -157,7 +158,7 @@ namespace BeatHopEditor.Gui
 						GL.Color4(note.Color.R, note.Color.G, note.Color.B, alphaMult * 0.45);
 						Glu.RenderOutline(gridX, gridY, 9, 9);
 					}
-				}
+				}*/
 
 				var numText = $"{(i + 1):##,###}";
 

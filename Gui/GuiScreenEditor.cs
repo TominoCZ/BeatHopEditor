@@ -17,7 +17,8 @@ namespace BeatHopEditor.Gui
 		public readonly GuiSlider Tempo;
 		public readonly GuiSlider MasterVolume;
 		public readonly GuiSlider SfxVolume;
-		public readonly GuiSlider BeatSnapDivisor;
+		public readonly GuiSlider BeatDivider;
+		public readonly GuiSlider GridDivider;
 		public readonly GuiSlider Timeline;
 		public readonly GuiTextBox Bpm;
 		public readonly GuiTextBox Offset;
@@ -59,7 +60,8 @@ namespace BeatHopEditor.Gui
 				CanBeNegative = true
 			};
 			Reposition = new GuiCheckBox(1, "Offset Notes", 10, 0, 32, 32, false);
-			BeatSnapDivisor = new GuiSlider(0, 0, 256, 40);
+			BeatDivider = new GuiSlider(0, 0, 256, 40);
+			GridDivider = new GuiSlider(0, 0, 256, 40);
 			Timeline = new GuiSliderTimeline(0, 0, EditorWindow.Instance.ClientSize.Width, 64);
 			Tempo = new GuiSlider(0, 0, 512, 64)
 			{
@@ -68,8 +70,11 @@ namespace BeatHopEditor.Gui
 			};
 
 			Timeline.Snap = false;
-			BeatSnapDivisor.Value = Track.BeatDivisor - 1;
-			BeatSnapDivisor.MaxValue = 23;
+			BeatDivider.Value = Track.BeatDivisor - 1;
+			BeatDivider.MaxValue = 23;
+
+			GridDivider.Value = 0;
+			GridDivider.MaxValue = 9;
 
 			MasterVolume = new GuiSlider(0, 0, 40, 256)
 			{
@@ -101,7 +106,8 @@ namespace BeatHopEditor.Gui
 			Buttons.Add(Tempo);
 			Buttons.Add(MasterVolume);
 			Buttons.Add(SfxVolume);
-			Buttons.Add(BeatSnapDivisor);
+			Buttons.Add(BeatDivider);
+			Buttons.Add(GridDivider);
 			Buttons.Add(Reposition);
 			Buttons.Add(Autoplay);
 			Buttons.Add(ApproachSquares);
@@ -152,10 +158,15 @@ namespace BeatHopEditor.Gui
 			fr.Render("BPM Offset[ms]:", (int)Offset.ClientRectangle.X, (int)Offset.ClientRectangle.Y - 24, 24);
 			fr.Render("Options:", (int)Autoplay.ClientRectangle.X, (int)Autoplay.ClientRectangle.Y - 26, 24);
 			
-			var divisor = $"Beat Divisor: {BeatSnapDivisor.Value + 1}";
+			var divisor = $"Beat Divider: {BeatDivider.Value + 1}";
 			var divisorW = fr.GetWidth(divisor, 24);
 
-			fr.Render(divisor, (int)(BeatSnapDivisor.ClientRectangle.X + BeatSnapDivisor.ClientRectangle.Width / 2 - divisorW / 2f), (int)BeatSnapDivisor.ClientRectangle.Y - 20, 24);
+			fr.Render(divisor, (int)(BeatDivider.ClientRectangle.X + BeatDivider.ClientRectangle.Width / 2 - divisorW / 2f), (int)BeatDivider.ClientRectangle.Y - 20, 24);
+
+			divisor = $"Grid Divider: {GridDivider.Value + 1}";
+			divisorW = fr.GetWidth(divisor, 24);
+
+			fr.Render(divisor, (int)(GridDivider.ClientRectangle.X + GridDivider.ClientRectangle.Width / 2 - divisorW / 2f), (int)GridDivider.ClientRectangle.Y - 20, 24);
 
 			var tempo = $"TEMPO - {Tempo.Value * 10 + 20}%";
 			var tempoW = fr.GetWidth(tempo, 24);
@@ -333,10 +344,11 @@ namespace BeatHopEditor.Gui
 			MasterVolume.ClientRectangle.Location = new PointF(EditorWindow.Instance.ClientSize.Width - 64, EditorWindow.Instance.ClientSize.Height - MasterVolume.ClientRectangle.Height - 64);
 			SfxVolume.ClientRectangle.Location = new PointF(MasterVolume.ClientRectangle.X - 64, EditorWindow.Instance.ClientSize.Height - SfxVolume.ClientRectangle.Height - 64);
 
-			Grid.ClientRectangle = new RectangleF((int)(size.Width / 2f - Grid.ClientRectangle.Width / 2), (int)(size.Height - Grid.ClientRectangle.Height - 164/* + Track.ClientRectangle.Height - 64*/), Grid.ClientRectangle.Width, Grid.ClientRectangle.Height);
-			CopyButton.ClientRectangle.Location = new PointF(Grid.ClientRectangle.X, Grid.ClientRectangle.Bottom + 5 + 1);
+			Grid.ClientRectangle = new RectangleF((int)(size.Width / 2f - Grid.ClientRectangle.Width / 2), (int)(size.Height - Grid.ClientRectangle.Height - 174/* + Track.ClientRectangle.Height - 64*/), Grid.ClientRectangle.Width, Grid.ClientRectangle.Height);
+			CopyButton.ClientRectangle.Location = new PointF(Grid.ClientRectangle.X, Grid.ClientRectangle.Bottom + 8);
 			BackButton.ClientRectangle.Location = new PointF(Grid.ClientRectangle.X, CopyButton.ClientRectangle.Bottom + 8);
-			BeatSnapDivisor.ClientRectangle.Location = new PointF(EditorWindow.Instance.ClientSize.Width - BeatSnapDivisor.ClientRectangle.Width, Bpm.ClientRectangle.Y);
+			BeatDivider.ClientRectangle.Location = new PointF(EditorWindow.Instance.ClientSize.Width - BeatDivider.ClientRectangle.Width, /*Bpm.ClientRectangle.Y*/ MasterVolume.ClientRectangle.Y - BeatDivider.ClientRectangle.Height);
+			GridDivider.ClientRectangle.Location = new PointF(EditorWindow.Instance.ClientSize.Width - GridDivider.ClientRectangle.Width, BeatDivider.ClientRectangle.Y - GridDivider.ClientRectangle.Height - 10);
 			Timeline.ClientRectangle = new RectangleF(0, EditorWindow.Instance.ClientSize.Height - 64, EditorWindow.Instance.ClientSize.Width - 512 - 64, 64);
 			Tempo.ClientRectangle = new RectangleF(EditorWindow.Instance.ClientSize.Width - 512, EditorWindow.Instance.ClientSize.Height - 64, 512, 64);
 
@@ -345,7 +357,8 @@ namespace BeatHopEditor.Gui
 			Offset.ClientRectangle.Y = Bpm.ClientRectangle.Bottom + 5 + 24 + 10;
 			SetOffset.ClientRectangle.Y = Offset.ClientRectangle.Y;
 			Reposition.ClientRectangle.Y = Offset.ClientRectangle.Bottom + 10;
-			BeatSnapDivisor.ClientRectangle.Y = MasterVolume.ClientRectangle.Y - BeatSnapDivisor.ClientRectangle.Height;
+			//BeatDivider.ClientRectangle.Y = MasterVolume.ClientRectangle.Y - BeatDivider.ClientRectangle.Height;
+			//GridDivider.ClientRectangle.Y = BeatDivider.ClientRectangle.Y - GridDivider.ClientRectangle.Height - 10;
 
 			Autoplay.ClientRectangle.Y = Reposition.ClientRectangle.Bottom + 32 + 20;
 			ApproachSquares.ClientRectangle.Y = Autoplay.ClientRectangle.Bottom + 10;
@@ -371,7 +384,8 @@ namespace BeatHopEditor.Gui
 			Tempo.Dragging = false;
 			MasterVolume.Dragging = false;
 			SfxVolume.Dragging = false;
-			BeatSnapDivisor.Dragging = false;
+			BeatDivider.Dragging = false;
+			GridDivider.Dragging = false;
 		}
 
 		private void UpdateTrack()
