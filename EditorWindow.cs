@@ -96,7 +96,7 @@ namespace BeatHopEditor
 
 		public float CubeStep => 50 * 10 * Zoom;
 
-		public EditorWindow(long offset) : base(1080, 600, new GraphicsMode(32, 8, 0, 8), "Beat Hop Map Editor v1.2")
+		public EditorWindow(long offset) : base(1080, 600, new GraphicsMode(32, 8, 0, 8), "Beat Hop Map Editor v1.3")
 		{
 			Instance = this;
 
@@ -1421,7 +1421,7 @@ namespace BeatHopEditor
 				lastDiff = diff;
 				lastMs = note.Ms;
 
-				sb.Append($@",{note.X.ToString(CultureInfo.InvariantCulture)}|{note.Y.ToString(CultureInfo.InvariantCulture)}|{offset}");
+				sb.Append($@",{note.X.ToString("0.###", CultureInfo.InvariantCulture)}|{note.Y.ToString("0.###", CultureInfo.InvariantCulture)}|{offset}");
 			}
 
 			return sb.ToString();
