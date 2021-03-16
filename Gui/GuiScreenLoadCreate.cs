@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using Color = System.Drawing.Color;
 
@@ -19,6 +20,7 @@ namespace BeatHopEditor.Gui
 
 		private readonly List<Particle> _particles = new List<Particle>();
 
+		private readonly Vector2 _textureSize;
 		private readonly int _textureId;
 
 		private float _timer;
@@ -27,6 +29,7 @@ namespace BeatHopEditor.Gui
 		{
 			using (var img = Properties.Resources.logo)
 			{
+				_textureSize = new Vector2(img.Width, img.Height);
 				_textureId = TextureManager.GetOrRegister("logo", img, true);
 			}
 
@@ -67,7 +70,7 @@ namespace BeatHopEditor.Gui
 			var rect = ClientRectangle;
 
 			GL.Color3(1, 1, 1f);
-			Glu.RenderTexturedQuad(rect.X + rect.Width / 2 - 256, 0, 512, 512, 0, 0, 1, 1, _textureId);
+			Glu.RenderTexturedQuad(rect.X + rect.Width / 2 - _textureSize.X / 2, rect.Height / 4 - _textureSize.Y / 2, _textureSize.X, _textureSize.Y, 0, 0, 1, 1, _textureId);
 
 			for (var index = _particles.Count - 1; index >= 0; index--)
 			{

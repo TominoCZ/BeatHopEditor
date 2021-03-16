@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -95,7 +96,7 @@ namespace BeatHopEditor
 
 		public float CubeStep => 50 * 10 * Zoom;
 
-		public EditorWindow(long offset) : base(1080, 600, new GraphicsMode(32, 8, 0, 8), "Beat Hop Map Editor v1.1")
+		public EditorWindow(long offset) : base(1080, 600, new GraphicsMode(32, 8, 0, 8), "Beat Hop Map Editor v1.2")
 		{
 			Instance = this;
 
@@ -1282,8 +1283,8 @@ namespace BeatHopEditor
 
 					var chunkSplit = Regex.Matches(chunk.Value, "([^|]+)");
 
-					var x = float.Parse(chunkSplit[0].Value.Replace(",", "."));
-					var y = float.Parse(chunkSplit[1].Value.Replace(",", "."));
+					var x = float.Parse(chunkSplit[0].Value, CultureInfo.InvariantCulture);
+					var y = float.Parse(chunkSplit[1].Value, CultureInfo.InvariantCulture);
 					var msText = chunkSplit[2].Value;
 					var ms = long.Parse(msText);
 
@@ -1420,7 +1421,7 @@ namespace BeatHopEditor
 				lastDiff = diff;
 				lastMs = note.Ms;
 
-				sb.Append($",{note.X}|{note.Y}|{offset}");
+				sb.Append($@",{note.X.ToString(CultureInfo.InvariantCulture)}|{note.Y.ToString(CultureInfo.InvariantCulture)}|{offset}");
 			}
 
 			return sb.ToString();
