@@ -2,7 +2,7 @@
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace BeatHopEditor.Gui
+namespace SoundSpaceHopEditor.Gui
 {
 	class GuiButton : Gui
 	{

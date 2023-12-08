@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL;
 
-namespace BeatHopEditor
+namespace SoundSpaceHopEditor
 {
 
     /// <summary>The font class for 2D text printing in a OpenGL scene.</summary>

@@ -8,7 +8,7 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 
-namespace BeatHopEditor.Gui
+namespace SoundSpaceHopEditor.Gui
 {
 	class GuiTextBox : Gui
 	{

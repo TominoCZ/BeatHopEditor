@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using OpenTK.Input;
 
-namespace BeatHopEditor.Gui
+namespace SoundSpaceHopEditor.Gui
 {
 	class GuiScreen : Gui
 	{

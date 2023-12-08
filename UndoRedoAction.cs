@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BeatHopEditor
+namespace SoundSpaceHopEditor
 {
 	class UndoRedoAction
 	{

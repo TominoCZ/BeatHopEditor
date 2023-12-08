@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace BeatHopEditor
+namespace SoundSpaceHopEditor
 {
 	[Serializable]
 	class Note

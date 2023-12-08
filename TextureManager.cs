@@ -6,7 +6,7 @@ using System.IO;
 using OpenTK.Graphics.OpenGL;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 
-namespace BeatHopEditor
+namespace SoundSpaceHopEditor
 {
 	static class TextureManager
 	{

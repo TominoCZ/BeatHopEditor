@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using OpenTK.Graphics.OpenGL;
 
-namespace BeatHopEditor.Gui
+namespace SoundSpaceHopEditor.Gui
 {
 	class GuiLabel : Gui
 	{

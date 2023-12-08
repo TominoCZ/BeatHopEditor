@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace BeatHopEditor.Gui
+namespace SoundSpaceHopEditor.Gui
 {
 	class Gui
 	{

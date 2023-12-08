@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using OpenTK.Input;
 
-namespace BeatHopEditor.Gui
+namespace SoundSpaceHopEditor.Gui
 {
 	class GuiScreenCreate : GuiScreen
 	{

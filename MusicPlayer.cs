@@ -2,7 +2,7 @@
 using Un4seen.Bass;
 using Un4seen.Bass.AddOn.Fx;
 
-namespace BeatHopEditor
+namespace SoundSpaceHopEditor
 {
 	class MusicPlayer : IDisposable
 	{
