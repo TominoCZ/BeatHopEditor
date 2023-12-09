@@ -1,6 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-namespace SoundSpaceHopEditor.Gui
+namespace BeatHopEditor.Gui
 {
 	class GuiButtonPlayPause : GuiButton
 	{

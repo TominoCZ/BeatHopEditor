@@ -3,7 +3,7 @@ using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace SoundSpaceHopEditor
+namespace BeatHopEditor
 {
 	static class Glu
 	{

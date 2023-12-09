@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using SoundSpaceHopEditor.Gui;
+using BeatHopEditor.Gui;
 
-namespace SoundSpaceHopEditor
+namespace BeatHopEditor
 {
 	class UndoRedo
 	{

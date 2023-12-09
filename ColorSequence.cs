@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace SoundSpaceHopEditor
+namespace BeatHopEditor
 {
 	class ColorSequence
 	{

@@ -7,7 +7,7 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using Color = System.Drawing.Color;
 
-namespace SoundSpaceHopEditor.Gui
+namespace BeatHopEditor.Gui
 {
 	class GuiScreenLoadCreate : GuiScreen
 	{

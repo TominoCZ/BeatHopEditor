@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using OpenTK.Graphics.OpenGL;
 
-namespace SoundSpaceHopEditor.Gui
+namespace BeatHopEditor.Gui
 {
 	class GuiTrack : Gui
 	{

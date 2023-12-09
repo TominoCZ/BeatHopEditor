@@ -10,15 +10,15 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using SoundSpaceHopEditor.Gui;
-using SoundSpaceHopEditor.Properties;
+using BeatHopEditor.Gui;
+using BeatHopEditor.Properties;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using KeyPressEventArgs = OpenTK.KeyPressEventArgs;
 
-namespace SoundSpaceHopEditor
+namespace BeatHopEditor
 {
 	class EditorWindow : GameWindow
 	{
@@ -96,7 +96,7 @@ namespace SoundSpaceHopEditor
 
 		public float CubeStep => 50 * 10 * Zoom;
 
-		public EditorWindow(long offset) : base(1080, 600, new GraphicsMode(32, 8, 0, 8), "Sound Space: Hop Map Editor v1.0")
+		public EditorWindow(long offset) : base(1080, 600, new GraphicsMode(32, 8, 0, 8), "Beat Hop Map Editor v1.0")
 		{
 			Instance = this;
 
@@ -1328,7 +1328,7 @@ namespace SoundSpaceHopEditor
 						t += ms;
 					}*/
 
-					Notes.Add(new Note(x, y, ms/*t*/));
+					Notes.Add(new Note(Math.Min(4, Math.Max(0, x)), y, ms/*t*/));
 				}
 				if (long.TryParse(id.Value, out _soundId) && LoadSound(_soundId))
 				{

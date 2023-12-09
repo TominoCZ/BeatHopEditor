@@ -3,12 +3,12 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using SoundSpaceHopEditor.Properties;
+using BeatHopEditor.Properties;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 
-namespace SoundSpaceHopEditor.Gui
+namespace BeatHopEditor.Gui
 {
 	class GuiScreenEditor : GuiScreen
 	{

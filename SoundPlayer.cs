@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Un4seen.Bass;
 using Un4seen.Bass.AddOn.Fx;
 
-namespace SoundSpaceHopEditor
+namespace BeatHopEditor
 {
 	//class SoundPlayer : IDisposable
 	//{

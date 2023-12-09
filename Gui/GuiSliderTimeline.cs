@@ -4,7 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace SoundSpaceHopEditor.Gui
+namespace BeatHopEditor.Gui
 {
 	class GuiSliderTimeline : GuiSlider
 	{
