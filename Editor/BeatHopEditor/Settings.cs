@@ -221,7 +221,7 @@ namespace BeatHopEditor
                             {
                                 var keys = new List<Keys>();
 
-                                for (int i = 0; i < 9; i++)
+                                for (int i = 0; i < 5; i++)
                                     keys.Add(ConvertToKey(value[i]));
 
                                 settings[setting.Key] = keys;
