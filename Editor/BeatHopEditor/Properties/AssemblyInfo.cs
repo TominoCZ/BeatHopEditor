@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Sound Space Hop Editor")]
-[assembly: AssemblyDescription("Software made for editing levels for the game Sound Space: Hop.")]
+[assembly: AssemblyTitle("Beat Hop Map Editor")]
+[assembly: AssemblyDescription("Software made for editing levels for the game Beat Hop.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sound Space Studios")]
-[assembly: AssemblyProduct("Sound Space Hop Editor")]
+[assembly: AssemblyProduct("Beat Hop Map Editor")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

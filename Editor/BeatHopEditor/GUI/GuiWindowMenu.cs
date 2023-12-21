@@ -7,7 +7,7 @@ namespace BeatHopEditor.GUI
 {
     internal class GuiWindowMenu : GuiWindow
     {
-        private readonly GuiSquare Logo = new(160, 40, 720, 480, Color.FromArgb(255, 30, 30, 30), false, "assets/textures/Logo.png", "logo", true);
+        private readonly GuiSquare Logo = new(280, 40, 480, 480, Color.FromArgb(255, 30, 30, 30), false, "assets/textures/Icon.ico", "logo", true);
         private readonly GuiLabel ChangelogLabel = new(80, 500, 880, 480, "", 18, false, false, "main", false);
 
         private readonly GuiButton CreateButton = new(1150, 495, 300, 85, 0, "CREATE MAP", 40, false, false, "square");

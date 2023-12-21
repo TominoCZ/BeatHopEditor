@@ -9,11 +9,11 @@ namespace BHME_Updater
         {
             var currentPath = Directory.GetCurrentDirectory();
             string currentVersion = "";
-            if (File.Exists("Sound Space Hop Editor.exe"))
-                currentVersion = FileVersionInfo.GetVersionInfo("Sound Space Hop Editor.exe").FileVersion ?? "";
+            if (File.Exists("Beat Hop Map Editor.exe"))
+                currentVersion = FileVersionInfo.GetVersionInfo("Beat Hop Map Editor.exe").FileVersion ?? "";
 
             var newVersion = CheckVersion();
-            var file = $"SSHE{newVersion}.zip";
+            var file = $"BHME{newVersion}.zip";
 
             if (newVersion != "")
             {
@@ -157,7 +157,7 @@ namespace BHME_Updater
                 Console.WriteLine("Completed, launching...");
 
                 File.Delete(file);
-                Process.Start("Sound Space Hop Editor");
+                Process.Start("Beat Hop Map Editor");
 
                 Quit();
             }

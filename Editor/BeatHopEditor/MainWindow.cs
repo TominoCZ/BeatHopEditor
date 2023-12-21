@@ -127,7 +127,7 @@ namespace BeatHopEditor
         public MainWindow() : base(GameWindowSettings.Default, new NativeWindowSettings()
         {
             Size = (1280, 720),
-            Title = $"Sound Space Hop Editor {Assembly.GetExecutingAssembly().GetName().Version}",
+            Title = $"Beat Hop Map Editor {Assembly.GetExecutingAssembly().GetName().Version}",
             NumberOfSamples = 32,
             WindowState = WindowState.Maximized,
             Icon = GetWindowIcon(),
@@ -427,7 +427,7 @@ namespace BeatHopEditor
                                             var scalef = scale / 100f;
 
                                             foreach (var note in copied.ToList())
-                                                note.X = (note.X - 2) * scalef + 2;
+                                                note.X = MathHelper.Clamp((note.X - 2) * scalef + 2, Bounds.X, Bounds.Y);
                                         }
                                     }
 
@@ -1582,10 +1582,10 @@ namespace BeatHopEditor
 
             Dictionary<string, string> links = new()
             {
-                //{"SSHE Player Version", "https://raw.githubusercontent.com/TominoCZ/BeatHopEditor/main/player_version" },
-                //{"SSHE Player Zip", "https://github.com/TominoCZ/BeatHopEditor/main/SSHE%20Player.zip" },
-                {"SSHE Updater Version", "https://raw.githubusercontent.com/TominoCZ/BeatHopEditor/main/updater_version" },
-                {"SSHE Updater Zip", "https://raw.githubusercontent.com/TominoCZ/BeatHopEditor/main/SSHE%20Updater.zip" },
+                //{"BHME Player Version", "https://raw.githubusercontent.com/TominoCZ/BeatHopEditor/main/player_version" },
+                //{"BHME Player Zip", "https://github.com/TominoCZ/BeatHopEditor/main/BHME%20Player.zip" },
+                {"BHME Updater Version", "https://raw.githubusercontent.com/TominoCZ/BeatHopEditor/main/updater_version" },
+                {"BHME Updater Zip", "https://raw.githubusercontent.com/TominoCZ/BeatHopEditor/main/BHME%20Updater.zip" },
                 {"Editor Redirect", "https://github.com/TominoCZ/BeatHopEditor/releases/latest" }
             };
 
@@ -1640,12 +1640,12 @@ namespace BeatHopEditor
 
             try
             {
-                //Run("SSHE Player", "Map Player");
-                Run("SSHE Updater", "Auto Updater");
+                //Run("BHME Player", "Map Player");
+                Run("BHME Updater", "Auto Updater");
 
                 var redirect = WebClient.GetRedirect(links["Editor Redirect"]);
 
-                if (File.Exists("SSHE Updater.exe") && redirect != "")
+                if (File.Exists("BHME Updater.exe") && redirect != "")
                 {
                     var version = redirect[(redirect.LastIndexOf("/") + 1)..];
 
@@ -1657,7 +1657,7 @@ namespace BeatHopEditor
                         if (diag == DialogResult.Yes)
                         {
                             ActionLogging.Register("Attempting to run updater");
-                            Process.Start("SSHE Updater.exe");
+                            Process.Start("BHME Updater.exe");
                         }
                     }
                 }

@@ -319,7 +319,7 @@ namespace BeatHopEditor.GUI
                             var old = selectedS[i].X;
                             var cur = (old - 2) * scalef + 2;
 
-                            values[i] = (MathHelper.Clamp(cur, 0, 4), old);
+                            values[i] = (MathHelper.Clamp(cur, MainWindow.Bounds.X, MainWindow.Bounds.Y), old);
                         }
 
                         editor.UndoRedoManager.Add($"SCALE {scale}%", () =>

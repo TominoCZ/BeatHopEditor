@@ -8,7 +8,7 @@
     <Nullable>enable</Nullable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Platforms>AnyCPU;x64</Platforms>
-    <AssemblyName>SSHE Updater</AssemblyName>
+    <AssemblyName>BHME Updater</AssemblyName>
   </PropertyGroup>
 
 </Project>
