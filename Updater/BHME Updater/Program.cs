@@ -118,7 +118,7 @@ namespace BHME_Updater
 
             void KillProcess()
             {
-                foreach (var process in Process.GetProcessesByName("Sound Space Hop Editor"))
+                foreach (var process in Process.GetProcessesByName("Beat Hop Map Editor"))
                     process.Kill();
 
                 Thread.Sleep(500);
