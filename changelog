@@ -1,4 +1,9 @@
 ----------------------------------
+    -- 1.0.0.2 - 12/26/2023 --
+
+- note locations are now properly rounded in map data
+
+----------------------------------
     -- 1.0.0.1 - 12/22/2023 --
 
 - required OpenGL version is now 3.3
