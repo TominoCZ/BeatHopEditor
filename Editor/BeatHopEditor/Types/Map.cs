@@ -286,7 +286,7 @@ namespace BeatHopEditor.Types
                 prevDiff = diff;
                 prevMs = clone.Ms;
 
-                final[i + 1] = $",{clone.X.ToString(culture)}|0|{offset}";
+                final[i + 1] = $",{Math.Round(clone.X, 2).ToString(culture)}|0|{offset}";
             }
 
             return string.Join("", final);
