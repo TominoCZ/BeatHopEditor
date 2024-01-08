@@ -1,4 +1,12 @@
 ----------------------------------
+     -- 1.0.1.0 - 1/8/2024 --
+
+- optimized waveform rendering
+- fixed a memory leak with waveform data
+- fixed note shifting when saving with an export offset other than 0
+- fixed logging editor actions
+
+----------------------------------
     -- 1.0.0.2 - 12/26/2023 --
 
 - note locations are now properly rounded in map data
