@@ -78,7 +78,7 @@ namespace BeatHopEditor.Types
             editor.UndoRedoManager.Clear();
 
             for (int i = 0; i < urActions.Count; i++)
-                editor.UndoRedoManager.Add(urActions[i].Label, urActions[i].Undo, urActions[i].Redo, false);
+                editor.UndoRedoManager.Add(urActions[i].Label, urActions[i].Undo, urActions[i].Redo, false, true);
 
             editor.UndoRedoManager._index = urIndex;
 
@@ -276,7 +276,7 @@ namespace BeatHopEditor.Types
             for (int i = 0; i < notes.Count; i++)
             {
                 var note = notes[i];
-                var clone = copy ? new Note(MathHelper.Clamp(note.X, MainWindow.Bounds.X, MainWindow.Bounds.Y), (long)MathHelper.Clamp(note.Ms, 0, Settings.settings["currentTime"].Max)) : note;
+                var clone = copy ? new Note(MathHelper.Clamp(note.X, MainWindow.Bounds.X, MainWindow.Bounds.Y), (long)MathHelper.Clamp(note.Ms, 0, Settings.settings["currentTime"].Max)) : note.Clone();
                 if (applyOffset)
                     clone.Ms += staticOffset;
 

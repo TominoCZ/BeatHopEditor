@@ -32,5 +32,10 @@ namespace BeatHopEditor
 
             return $",{x.ToString(culture)}|0|{Ms}";
         }
+
+        public Note Clone()
+        {
+            return new(X, Ms);
+        }
     }
 }

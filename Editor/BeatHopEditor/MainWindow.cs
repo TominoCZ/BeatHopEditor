@@ -170,7 +170,7 @@ namespace BeatHopEditor
             if (closing)
                 return;
 
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             if (MusicPlayer.IsPlaying && CurrentWindow is GuiWindowEditor)
                 Settings.settings["currentTime"].Value = (float)MusicPlayer.CurrentTime.TotalMilliseconds;
