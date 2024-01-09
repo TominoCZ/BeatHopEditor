@@ -231,6 +231,7 @@ namespace BeatHopEditor.Types
 
         public static string Parse(string data, List<Note> notes, bool ss = false)
         {
+            bool alt = MainWindow.Instance.AltHeld;
             var split = data.Split(',');
 
             long total = 0;
@@ -246,7 +247,13 @@ namespace BeatHopEditor.Types
                     long ms = long.Parse(sub[2]);
 
                     if (ss)
-                        notes.Add(new(x + float.Parse(sub[1], culture), ms));
+                    {
+                        x += float.Parse(sub[1], culture);
+                        if (!alt)
+                            x = MathHelper.Clamp(x, 0, 4);
+
+                        notes.Add(new(x, ms));
+                    }
                     else
                     {
                         prev += ms;
