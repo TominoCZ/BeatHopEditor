@@ -157,6 +157,7 @@ namespace BeatHopEditor.GUI
             var setting = Settings.settings["changelogPosition"];
 
             setting.Max = lines.Count - (int)(ChangelogLabel.Rect.Height / ChangelogLabel.TextSize);
+            ChangelogSlider.Visible = setting.Max > 0;
 
             for (int i = 0; i < lines.Count; i++)
                 if (i >= setting.Max - setting.Value && i < setting.Max - setting.Value + ChangelogLabel.Rect.Height / ChangelogLabel.TextSize - 1)

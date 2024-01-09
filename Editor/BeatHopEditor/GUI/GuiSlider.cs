@@ -204,6 +204,8 @@ namespace BeatHopEditor.GUI
             }
             else
                 Dragging = true;
+
+            MainWindow.Instance.CurrentWindow?.OnButtonClicked(-1);
         }
 
         public override void OnMouseUp(Point pos)
