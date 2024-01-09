@@ -1,4 +1,12 @@
 ----------------------------------
+     -- 1.0.1.1 - 1/9/2024 --
+
+- pasting an ss map now clamps note locations to the map borders by default, can be disabled by holding ALT on click
+- fixed overlapping button and slider hitboxes
+- reduced slider hitbox size along its line
+- changelog slider is now hidden if it has nothing to scroll
+
+----------------------------------
      -- 1.0.1.0 - 1/8/2024 --
 
 - optimized waveform rendering
