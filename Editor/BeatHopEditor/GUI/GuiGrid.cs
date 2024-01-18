@@ -404,7 +404,8 @@ namespace BeatHopEditor.GUI
                 if (HoveringNote == null || (separateClickTools && !selectTool))
                 {
                     var gridPos = editor.PointToGridSpace(pos.X, pos.Y - Rect.Width / 10f);
-                    var note = new Note(gridPos.X, (long)(gridPos.Y >= 0 && pos.Y < Rect.Y ? gridPos.Y : Settings.settings["currentTime"].Value));
+                    var cur = gridPos.Y >= 0 && pos.Y < Rect.Y;
+                    var note = new Note(gridPos.X, (long)(cur ? gridPos.Y : Settings.settings["currentTime"].Value));
 
                     editor.UndoRedoManager.Add("ADD NOTE", () =>
                     {
@@ -416,7 +417,7 @@ namespace BeatHopEditor.GUI
                         editor.SortNotes();
                     });
 
-                    if (Settings.settings["autoAdvance"] && gridPos.Y == Settings.settings["currentTime"].Value)
+                    if (Settings.settings["autoAdvance"] && !cur)
                         editor.Advance();
 
                     lastPlaced = gridPos;
@@ -467,10 +468,11 @@ namespace BeatHopEditor.GUI
                 if (DraggingNote == null)
                 {
                     var gridPos = editor.PointToGridSpace(pos.X, pos.Y - Rect.Width / 10f);
+                    var cur = gridPos.Y >= 0 && pos.Y < Rect.Y;
 
-                    if (gridPos.X != lastPlaced.X || (gridPos.Y != Settings.settings["currentTime"].Value && gridPos.Y != lastPlaced.Y))
+                    if (gridPos.X != lastPlaced.X || (cur && gridPos.Y != lastPlaced.Y))
                     {
-                        var note = new Note(gridPos.X, (long)(gridPos.Y >= 0 ? gridPos.Y : Settings.settings["currentTime"].Value));
+                        var note = new Note(gridPos.X, (long)(cur ? gridPos.Y : Settings.settings["currentTime"].Value));
 
                         editor.UndoRedoManager.Add("ADD NOTE", () =>
                         {
@@ -482,7 +484,7 @@ namespace BeatHopEditor.GUI
                             editor.SortNotes();
                         });
 
-                        if (Settings.settings["autoAdvance"] && gridPos.Y == Settings.settings["currentTime"].Value)
+                        if (Settings.settings["autoAdvance"] && !cur)
                             editor.Advance();
 
                         lastPlaced = gridPos;
