@@ -1,4 +1,12 @@
 ----------------------------------
+     -- 1.0.1.2 - 1/18/2024 --
+
+- fixed shift clicking grid notes without other notes selected
+- fixed note location inconsistency when drag placing on grid
+- fixed auto advance sometimes not working with click to place on bottom grid portion
+- reformatted crash logs
+
+----------------------------------
      -- 1.0.1.1 - 1/9/2024 --
 
 - pasting an ss map now clamps note locations to the map borders by default, can be disabled by holding ALT on click
