@@ -426,7 +426,7 @@ namespace BeatHopEditor.GUI
                 {
                     DraggingNote = HoveringNote;
                     lastPos = (HoveringNote.X, HoveringNote.Ms);
-                    startPos = new Vector2(HoveringNote.X, 0);
+                    startPos = new Vector2(HoveringNote.X, HoveringNote.Ms);
 
                     var selected = editor.SelectedNotes.ToList();
 
@@ -526,18 +526,18 @@ namespace BeatHopEditor.GUI
 
         public override void OnMouseUp(Point pos)
         {
-            if (DraggingNote != null && new Vector2(DraggingNote.X, 0) != startPos)
+            if (DraggingNote != null && new Vector2(DraggingNote.X, DraggingNote.Ms) != startPos)
             {
                 var editor = MainWindow.Instance;
                 var selected = editor.SelectedNotes.ToList();
                 var oldPos = new List<Vector2>();
                 var newPos = new List<Vector2>();
 
-                var posDiff = new Vector2(DraggingNote.X, 0) - startPos;
+                var posDiff = new Vector2(DraggingNote.X, DraggingNote.Ms) - startPos;
 
                 for (int i = 0; i < selected.Count; i++)
                 {
-                    var xy = new Vector2(selected[i].X, 0);
+                    var xy = new Vector2(selected[i].X, selected[i].Ms);
 
                     oldPos.Add(xy - posDiff);
                     newPos.Add(xy);
@@ -546,11 +546,17 @@ namespace BeatHopEditor.GUI
                 editor.UndoRedoManager.Add($"MOVE NOTE{(selected.Count > 1 ? "S" : "")}", () =>
                 {
                     for (int i = 0; i < selected.Count; i++)
+                    {
                         selected[i].X = oldPos[i].X;
+                        selected[i].Ms = (long)oldPos[i].Y;
+                    }
                 }, () =>
                 {
                     for (int i = 0; i < selected.Count; i++)
+                    {
                         selected[i].X = newPos[i].X;
+                        selected[i].Ms = (long)newPos[i].Y;
+                    }
                 }, false);
             }
 
