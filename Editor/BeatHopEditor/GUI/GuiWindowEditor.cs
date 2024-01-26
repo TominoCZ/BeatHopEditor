@@ -34,6 +34,7 @@ namespace BeatHopEditor.GUI
         private readonly GuiCheckbox QuantumGridSnap = new(10, 400, 35, 35, "quantumGridSnap", "Snap to Grid", 22, false, true);
         private readonly GuiCheckbox Metronome = new(10, 445, 35, 35, "metronome", "Metronome", 22, false, true);
         private readonly GuiCheckbox SeparateClickTools = new(10, 490, 35, 35, "separateClickTools", "Separate Click Tools", 22, false, true);
+        private readonly GuiCheckbox JumpOnPaste = new(10, 535, 35, 35, "jumpPaste", "Jump on Paste", 22, false, true);
         private readonly GuiSlider TrackHeight = new(378, 384, 32, 224, "trackHeight", false, false, true);
         private readonly GuiSlider TrackCursorPos = new(10, 596, 400, 32, "cursorPos", false, false, true);
 
@@ -100,8 +101,8 @@ namespace BeatHopEditor.GUI
                 CopyButton, BackButton, SaveButton, PlayPause, OptionsNav, TimingNav, UseCurrentMs, OpenTimings, ImportIni, PatternsNav, Mirror, ScaleButton, TweenButton,
                 TweenFunction, TweenMode, ReviewNav, OpenBookmarks, CopyBookmarks, PasteBookmarks,
                 // Checkboxes
-                AutoAdvance, Autoplay, ApproachSquares, GridNumbers, GridLetters, Quantum, QuantumGridLines, QuantumGridSnap, Metronome, SeparateClickTools, ApplyOnPaste,
-                VisualizeTween,
+                AutoAdvance, Autoplay, ApproachSquares, GridNumbers, GridLetters, Quantum, QuantumGridLines, QuantumGridSnap, Metronome, SeparateClickTools, JumpOnPaste,
+                ApplyOnPaste, VisualizeTween,
                 // Sliders
                 Tempo, MasterVolume, SfxVolume, BeatSnapDivisor, QuantumSnapDivisor, Timeline, TrackHeight, TrackCursorPos,
                 // Boxes
@@ -404,6 +405,7 @@ namespace BeatHopEditor.GUI
             QuantumGridSnap.Visible = optionsNav;
             Metronome.Visible = optionsNav;
             SeparateClickTools.Visible = optionsNav;
+            JumpOnPaste.Visible = optionsNav;
             TrackHeight.Visible = optionsNav;
             TrackCursorPos.Visible = optionsNav;
             TrackHeightLabel.Visible = optionsNav;

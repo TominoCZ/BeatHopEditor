@@ -406,6 +406,7 @@ namespace BeatHopEditor
                                 if (copied.Count > 0)
                                 {
                                     var offset = copied.Min(n => n.Ms);
+                                    var max = copied.Max(n => n.Ms);
 
                                     copied.ForEach(n => n.Ms = (long)Settings.settings["currentTime"].Value + n.Ms - offset);
 
@@ -419,6 +420,9 @@ namespace BeatHopEditor
                                                 note.X = MathHelper.Clamp((note.X - 2) * scalef + 2, Bounds.X, Bounds.Y);
                                         }
                                     }
+
+                                    if (Settings.settings["jumpPaste"])
+                                        Settings.settings["currentTime"].Value += max - offset;
 
                                     UndoRedoManager.Add($"PASTE NOTE{(copied.Count > 0 ? "S" : "")}", () =>
                                     {

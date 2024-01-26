@@ -38,8 +38,6 @@ namespace BeatHopEditor.GUI
         public float StartPos = 0f;
         public float EndPos = 1f;
 
-        private float StartX = 0f;
-        private float EndX = 0f;
         private Vector4 PosSet = new();
 
         private readonly Dictionary<string, int> Indices = new()

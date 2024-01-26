@@ -105,7 +105,7 @@ namespace BeatHopEditor.Types
 
             currentTime = Settings.settings["currentTime"].Value;
             beatDivisor = Settings.settings["beatDivisor"].Value;
-            exportOffset = Settings.settings["exportOffset"];
+            exportOffset = (long)Settings.settings["exportOffset"];
 
             urActions = editor.UndoRedoManager.actions.ToList();
             urIndex = editor.UndoRedoManager._index;
@@ -162,7 +162,7 @@ namespace BeatHopEditor.Types
 
                 currentTime = float.Parse(items[7], culture);
                 beatDivisor = float.Parse(items[8], culture);
-                exportOffset = int.Parse(items[9]);
+                exportOffset = long.Parse(items[9]);
 
                 urIndex = -1;
 

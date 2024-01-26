@@ -46,6 +46,7 @@ namespace BeatHopEditor
             {"gridGuides", false },
             {"applyOnPaste", false },
             {"visualizeTween", false },
+            {"jumpPaste", false },
 
             {"editorBGOpacity", 255 },
             {"gridOpacity", 255 },
