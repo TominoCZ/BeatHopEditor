@@ -1,4 +1,11 @@
 ----------------------------------
+     -- 1.0.3.0 - 2/7/2024 --
+
+- added fps limit setting, default: 120 fps
+- fixed invalid character appearing when pasting bookmarks
+- fixed placing bound patterns
+
+----------------------------------
      -- 1.0.2.0 - 1/26/2024 --
 
 - fixed a crash when saving a nonzero export offset
