@@ -87,6 +87,7 @@ namespace BeatHopEditor
             {"playerApproachRate", new SliderSetting(9, 29, 1) },
             {"masterVolume", new SliderSetting(0.05f, 1, 0.01f) },
             {"sfxVolume", new SliderSetting(0.1f, 1, 0.01f) },
+            {"fpsLimit", new SliderSetting(60f, 305f, 5f) },
 
             {"currentTime", new SliderSetting(0f, 0f, 0f) },
             {"beatDivisor", new SliderSetting(3f, 31f, 0.5f) },
@@ -250,7 +251,7 @@ namespace BeatHopEditor
                 Reset();
             }
 
-            MainWindow.Instance.SetVSync(settings["useVSync"] ? VSyncMode.On : VSyncMode.Off);
+            MainWindow.Instance.UpdateFPS(settings["useVSync"] ? VSyncMode.On : VSyncMode.Off);
 
             MainWindow.Instance.MusicPlayer.Volume = settings["masterVolume"].Value;
             MainWindow.Instance.SoundPlayer.Volume = settings["sfxVolume"].Value;

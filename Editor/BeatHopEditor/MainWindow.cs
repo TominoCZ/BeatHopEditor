@@ -151,10 +151,15 @@ namespace BeatHopEditor
             SwitchWindow(new GuiWindowMenu());
         }
 
-        public void SetVSync(VSyncMode mode)
+        public void UpdateFPS(VSyncMode mode)
         {
             if (Context.IsCurrent)
                 VSync = mode;
+
+            var fps = Settings.settings["fpsLimit"].Value;
+            var max = Settings.settings["fpsLimit"].Max;
+
+            RenderFrequency = Math.Round(fps) == Math.Round(max) ? 0f : fps + 60f;
         }
 
         protected override void OnLoad()
@@ -855,7 +860,7 @@ namespace BeatHopEditor
                 pattern = pattern[1..];
 
             if (CurrentWindow is GuiWindowEditor editor)
-                editor.ShowToast($"BOUND PATTERN TO KEY {index}", Settings.settings["color1"]);
+                editor.ShowToast($"BOUND PATTERN {index}", Settings.settings["color1"]);
 
             Settings.settings["patterns"][index] = pattern;
         }
@@ -879,15 +884,14 @@ namespace BeatHopEditor
             var culture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
             culture.NumberFormat.NumberDecimalSeparator = ".";
 
-            string[] patternSplit = pattern.split(',');
+            string[] patternSplit = pattern.Split(',');
             var toAdd = new List<Note>();
 
             foreach (var note in patternSplit)
             {
                 string[] noteSplit = note.Split('|');
                 var x = float.Parse(noteSplit[0], culture);
-                var y = float.Parse(noteSplit[1], culture);
-                var time = int.Parse(noteSplit[2], culture);
+                var time = int.Parse(noteSplit[1], culture);
                 var ms = GetClosestBeatScroll((long)Settings.settings["currentTime"].Value, false, time);
 
                 toAdd.Add(new Note(x, ms));
@@ -1384,6 +1388,8 @@ namespace BeatHopEditor
 
             for (int i = 0; i < bookmarks.Length; i++)
             {
+                bookmarks[i] = bookmarks[i].Trim();
+
                 var split = bookmarks[i].Split(" ~ ");
                 if (split.Length != 2)
                     continue;
